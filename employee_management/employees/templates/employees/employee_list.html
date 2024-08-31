@@ -1,0 +1,18 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+<h2>Employee List</h2>
+<a href="{% url 'employee_create' %}">Add new employee</a>
+<ul>
+    {% for employee in employees %}
+        <li>
+            <a href="{% url 'employee_detail' employee.pk %}">{{ employee.first_name }} {{ employee.last_name }}</a>
+            <a href="{% url 'employee_update' employee.pk %}">Edit</a>
+            <form method="post" action="{% url 'employee_delete' employee.pk %}">
+                {% csrf_token %}
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}
